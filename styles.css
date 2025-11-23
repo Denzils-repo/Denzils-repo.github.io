@@ -238,7 +238,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 0.1rem 0.1rem 0 0.1rem;
 }
 
 #doodle img {
@@ -540,4 +540,112 @@ footer {
     animation-timing-function: ease-out;
     animation-fill-mode: both;
     animation-delay: 2.5s;
+}
+/* ========== RESPONSIVE LAYOUT (TABLET & PHONE) ========== */
+
+@media (max-width: 900px) {
+
+    /* make content use full width */
+    main {
+        width: 100%;
+        margin: 0.5rem auto 0;
+        padding: 1rem;
+    }
+
+    /* outer card a bit tighter */
+    #container {
+        flex-direction: column;      /* stack left + right */
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+    }
+
+    #left,
+    #right {
+        width: 100%;
+        padding: 1.2rem 0;
+    }
+
+    /* doodle + status take more width and scale nicely */
+    #doodle {
+        width: 65%;
+        min-height: auto;
+    }
+
+    #discord_status {
+        width: 90%;
+    }
+
+    /* about + socials use full width inside the card */
+    #about_box,
+    #socials_box {
+        width: 100%;
+    }
+
+    /* header tweaks */
+    #watermark h1 {
+        font-size: 2.4rem;
+        text-align: left;
+    }
+
+    /* if you re-enable navigation later, let buttons wrap nicely */
+    #navigation_holder {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .navigation {
+        width: auto;
+        padding: 0 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ========== SMALL PHONES (VERY NARROW) ========== */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 1rem 0.75rem;
+    }
+
+    #topbar {
+        grid-template-columns: 1fr auto;  /* logo + utilities on one row */
+        grid-auto-rows: auto;
+        row-gap: 0.5rem;
+    }
+
+    #watermark h1 {
+        font-size: 2rem;
+    }
+
+    /* move nav below logo if you add it back later */
+    #navigation_holder {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    /* doodle + status */
+    #doodle {
+        width: 75%;
+    }
+
+    #discord_status {
+        width: 100%;
+    }
+
+    /* socials icons a bit smaller so they fit comfortably */
+    .link {
+        width: 50px;
+        height: 50px;
+    }
+
+    #socials_box {
+        padding: 1rem 0.5rem 1.2rem;
+    }
+
+    /* footer text */
+    #copyright {
+        font-size: 0.85rem;
+    }
 }
