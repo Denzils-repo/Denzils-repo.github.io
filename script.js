@@ -102,19 +102,19 @@ function getActivityText(data) {
 
   switch (category) {
     case "games":
-      return `Playing ${name}`;
+      return `Playing <span style="font-weight:800">${name}</span>`;
     case "browser":
-      return `Surfing the web on ${name}`;
+      return `Surfing the web on <span style="font-weight:800">${name}</span>`;
     case "ide":
-      return `Coding on ${name}`;
+      return `Coding on <span style="font-weight:800">${name}</span>`;
     case "modeling":
-      return `Modeling in ${name}`;
+      return `Modeling in <span style="font-weight:800">${name}</span>`;
     case "productivity":
-      return `Editing in ${name}`;
+      return `Editing in <span style="font-weight:800">${name}</span>`;
     case "music":
-      return `Listening to music on ${name}`;
+      return `Listening to music on <span style="font-weight:800">${name}</span>`;
     default:
-      return `Using ${name}`;
+      return `Using <span style="font-weight:800">${name}</span>`;
   }
 }
 
@@ -136,7 +136,7 @@ function updateDiscordStatus(data) {
     ["online", "idle", "dnd"].includes(discord_status) ? discord_status : "offline"
   );
 
-  discordActivityEl.textContent = getActivityText(data);
+  discordActivityEl.innerHTML = getActivityText(data);
 }
 
 function connectLanyard() {

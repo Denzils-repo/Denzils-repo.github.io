@@ -508,6 +508,7 @@ footer {
     animation-timing-function: ease-out;
     animation-fill-mode: both;
     animation-delay: 1.0s;
+    text-decoration: none;
 }
 
 #about_box {
