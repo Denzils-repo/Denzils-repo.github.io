@@ -44,14 +44,78 @@ function formatStatus(status) {
   }[status] || "Offline";
 }
 
+/* ---------- NEW: activity categories & helpers ---------- */
+
+const ACTIVITY_KEYWORDS = {
+  games: [
+    "roblox", "fortnite", "valorant", "minecraft",
+    "league of legends", "apex", "overwatch",
+    "cs2", "cs:go", "rocket league", "genshin"
+  ],
+  browser: [
+    "brave", "chrome", "google chrome", "firefox",
+    "edge", "opera", "opera gx", "vivaldi"
+  ],
+  ide: [
+    "visual studio code", "vs code", "vscode",
+    "visual studio", "intellij", "webstorm",
+    "pycharm", "rider", "clion", "android studio",
+    "xcode"
+  ],
+  modeling: [
+    "blender", "maya", "3ds max", "zbrush",
+    "substance painter"
+  ],
+  productivity: [
+    "figma", "premiere", "premiere pro", "after effects",
+    "davinci", "davinci resolve", "photoshop",
+    "illustrator", "canva"
+  ],
+  music: [
+    "spotify", "apple music", "tidal",
+    "yt music", "youtube music", "soundcloud"
+  ]
+};
+
+function getActivityCategory(name) {
+  const lower = name.toLowerCase();
+
+  for (const [category, keywords] of Object.entries(ACTIVITY_KEYWORDS)) {
+    if (keywords.some(k => lower.includes(k))) {
+      return category;
+    }
+  }
+  return null;
+}
+
 function getActivityText(data) {
   if (!data?.activities?.length) return "Working on things...";
 
   const custom = data.activities.find(a => a.type === 4);
   if (custom?.state) return custom.state;
 
-  const first = data.activities.find(a => a.type === 0) || data.activities[0];
-  return first?.name ? `Playing ${first.name}` : "Working on things...";
+  const activity = data.activities.find(a => a.type === 0) || data.activities[0];
+  if (!activity?.name) return "Working on things...";
+
+  const name = activity.name;
+  const category = getActivityCategory(name);
+
+  switch (category) {
+    case "games":
+      return `Playing ${name}`;
+    case "browser":
+      return `Surfing the web on ${name}`;
+    case "ide":
+      return `Coding on ${name}`;
+    case "modeling":
+      return `Modeling in ${name}`;
+    case "productivity":
+      return `Editing in ${name}`;
+    case "music":
+      return `Listening to music on ${name}`;
+    default:
+      return `Using ${name}`;
+  }
 }
 
 function updateDiscordStatus(data) {
@@ -108,14 +172,14 @@ connectLanyard();
 document.addEventListener("contextmenu", event => event.preventDefault());
 
 document.addEventListener("keydown", event => {
-    if (
-        event.key === "F12" ||                               
-        (event.ctrlKey && event.shiftKey && event.key === "I") ||
-        (event.ctrlKey && event.shiftKey && event.key === "J") ||
-        (event.ctrlKey && event.shiftKey && event.key === "C") || 
-        (event.ctrlKey && event.key === "U") ||              
-        (event.key === "F11")                                
-    ) {
-        event.preventDefault();
-    }
+  if (
+    event.key === "F12" ||
+    (event.ctrlKey && event.shiftKey && event.key === "I") ||
+    (event.ctrlKey && event.shiftKey && event.key === "J") ||
+    (event.ctrlKey && event.shiftKey && event.key === "C") ||
+    (event.ctrlKey && event.key === "U") ||
+    (event.key === "F11")
+  ) {
+    event.preventDefault();
+  }
 });
